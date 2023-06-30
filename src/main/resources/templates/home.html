@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelef.org"
+		xmlns:sec="http://www.thymelef.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Home Page</title>
+</head>
+<body>
+
+	<h2>Company Home Page</h2>
+	<!-- underlined -->
+	<hr>
+
+	<p>
+	Welcome to everyone!
+	</p>
+
+	<hr>
+
+	<p>
+		User: <span sec:authentication="principal.username" ></span>
+		<br> <br>
+		Role(s): <span sec:authentication="principal.authorities"> </span>
+
+	</p>
+
+    <div sec:authorize="hasRole('MANAGER')">
+		<!--Add a link to point to/leaders... this is for the managers	-->
+		<p>
+			<a th:href="@{/leaders}">Leadership Meeting</a>
+		</p>
+	</div>
+
+	<div sec:authorize="hasRole('ADMIN')">
+		<!--Add a link to point to/admins... this is for the admins	-->
+		<p>
+			<a th:href="@{/systems}">Admin Meeting</a>
+		</p>
+	</div>
+
+
+	<!-- Add a logout button -->
+	<form action="#" th:action="@{/logout}" method="post">
+
+		<input type="submit" value="Logout"/>
+
+	</form>
+
+</body>
+</html>
